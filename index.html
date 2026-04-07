@@ -3,182 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEAM DIGNITY | SOVEREIGN COMMAND</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <title>BLACKBIRD.Y2K | OMNI-COMMAND</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #ff0000;
-            --bg: #050505;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 0, 0, 0.2);
-        }
+        :root { --glow: #ff0000; --bg: #030303; --glass: rgba(10, 10, 10, 0.85); --border: rgba(255, 0, 0, 0.15); }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: crosshair; }
+        
+        body { background: var(--bg); color: #fff; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        /* Graphics 100+ Background Effects */
+        .vfx-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .vfx-grid { background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.1; height: 100%; width: 100%; }
+        .vfx-vignette { background: radial-gradient(circle, transparent 20%, #000 90%); height: 100%; width: 100%; position: absolute; top: 0; }
 
-        body {
-            background-color: var(--bg);
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+        nav { position: fixed; top: 0; width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border); }
+        .logo { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; color: var(--glow); text-shadow: 0 0 15px var(--glow); }
+        .nav-links a { color: #888; text-decoration: none; margin-left: 25px; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; font-weight: 700; }
+        .nav-links a:hover { color: var(--glow); text-shadow: 0 0 10px var(--glow); }
 
-        /* Animated Background Pulse */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #1a0000 0%, #000 70%);
-            z-index: -1;
-            animation: pulse 8s infinite alternate;
-        }
+        section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 20px; }
 
-        @keyframes pulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+        /* Profile System */
+        .profile-box { background: var(--glass); border: 1px solid var(--border); padding: 30px; border-radius: 15px; display: flex; align-items: center; gap: 20px; margin-bottom: 40px; transition: 0.5s; box-shadow: 0 0 30px rgba(255,0,0,0.05); }
+        .pfp-circle { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--glow); overflow: hidden; background: #111; box-shadow: 0 0 15px var(--glow); }
+        .pfp-circle img { width: 100%; height: 100%; object-fit: cover; }
+        input[type="text"] { background: #000; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 5px; outline: none; transition: 0.3s; }
+        input[type="text"]:focus { border-color: var(--glow); box-shadow: 0 0 10px var(--glow); }
 
-        /* Navigation Bar */
-        nav {
-            position: fixed;
-            top: 20px; left: 50%;
-            transform: translateX(-50%);
-            width: 90%; max-width: 800px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            display: flex;
-            justify-content: space-around;
-            padding: 15px;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        /* Script Hub & Executor UI */
+        .module-card { background: var(--glass); border: 1px solid var(--border); border-radius: 10px; padding: 30px; width: 100%; max-width: 900px; backdrop-filter: blur(20px); }
+        .script-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .script-item { background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 15px; border-radius: 5px; text-align: left; transition: 0.3s; }
+        .script-item:hover { border-color: var(--glow); background: rgba(255,0,0,0.05); }
 
-        nav a {
-            color: #aaa;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
+        .editor-container { width: 100%; height: 300px; background: #050505; border: 1px solid #222; border-radius: 5px; margin: 20px 0; position: relative; }
+        textarea { width: 100%; height: 100%; background: transparent; color: #00ff00; border: none; padding: 15px; font-family: monospace; resize: none; outline: none; }
+        
+        .exec-bar { display: flex; gap: 10px; }
+        .btn { background: #111; color: #fff; border: 1px solid #333; padding: 12px 25px; cursor: pointer; transition: 0.3s; font-family: 'Syncopate', sans-serif; font-size: 0.6rem; letter-spacing: 2px; }
+        .btn:hover { background: var(--glow); color: #000; box-shadow: 0 0 20px var(--glow); border-color: var(--glow); }
+        .btn.attach { border-color: #00ff00; color: #00ff00; }
+        .btn.attach:hover { background: #00ff00; color: #000; }
 
-        nav a:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-
-        /* Sections */
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 8vw, 5rem);
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px rgba(255,0,0,0.5));
-        }
-
-        .hero p { font-size: 1.2rem; color: #888; max-width: 600px; line-height: 1.6; }
-
-        /* Card System for Sections */
-        .card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 800px;
-            width: 100%;
-            backdrop-filter: blur(5px);
-            transition: 0.4s;
-        }
-
-        .card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 0 30px rgba(255,0,0,0.1); }
-
-        h2 { font-family: 'Orbitron', sans-serif; color: var(--primary); margin-bottom: 20px; text-transform: uppercase; }
-
-        .btn {
-            background: var(--primary);
-            color: #000;
-            border: none;
-            padding: 15px 40px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: 0.3s;
-        }
-
-        .btn:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--primary); }
-
-        /* Hidden Class for Tabs */
-        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
+        @keyframes scan { from { top: -100%; } to { top: 100%; } }
+        .scan { position: absolute; width: 100%; height: 2px; background: rgba(255,0,0,0.2); animation: scan 3s linear infinite; }
     </style>
 </head>
 <body>
 
+    <div class="vfx-layer"><div class="vfx-grid"></div><div class="vfx-vignette"></div></div>
+
     <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#ranks">Ranks</a>
-        <a href="#media">Media</a>
+        <div class="logo">BLACKBIRD.Y2K</div>
+        <div class="nav-links">
+            <a href="#home">HOME</a>
+            <a href="#scripts">SCRIPTHUB</a>
+            <a href="#executor">EXECUTOR</a>
+        </div>
     </nav>
 
-    <section id="home" class="hero">
-        <img src="https://www.roblox.com/asset-thumbnail/image?assetId=74075165887004&width=420&height=420&format=png" style="width: 200px; margin-bottom: 20px; filter: drop-shadow(0 0 10px red);" alt="Blackbird">
-        <h1>DIGNITY</h1>
-        <p>Hello, You probably heard about us, or searched us up.</p>
-        <button class="btn" onclick="location.href='#about'">ENTER PROTOCOL</button>
+    <section id="home">
+        <div class="profile-box" id="profileDisplay">
+            <div class="pfp-circle"><img id="userHeadshot" src="https://tr.rbxcdn.com/30day/150/150/AvatarHeadshot/Png" alt="?"></div>
+            <div>
+                <h2 id="displayName">GUEST_IDENTIFIED</h2>
+                <p style="font-size: 0.7rem; color: #666; margin-bottom: 10px;">ENTER USERNAME TO LINK IDENTITY</p>
+                <input type="text" id="robloxUser" placeholder="Roblox Username..." onchange="fetchRobloxUser()">
+            </div>
+        </div>
+        <h1 style="font-family: 'Syncopate'; font-size: 4rem; text-shadow: 0 0 30px red;">DIGNITY</h1>
+        <p style="letter-spacing: 5px; color: #ff0000; font-weight: bold;">SERVERSIDE COMMAND CENTER</p>
     </section>
 
-    <section id="about" class="reveal">
-        <div class="card">
-            <h2>The Mission</h2>
-            <p>Team Dignity isn't just a clan. It's a Sovereign Movement. We operate in the shadows of the Roblox engine, delivering the Apocalypse to those who stand in the way of the Blackbird.</p>
+    <section id="scripts">
+        <div class="module-card">
+            <h2 style="font-family: 'Syncopate'; font-size: 1rem;">// SCRIPT HUB</h2>
+            <div class="script-grid">
+                <div class="script-item"><h4>Infinite Yield</h4><p style="font-size: 0.6rem; color: #555;">Admin Commands</p></div>
+                <div class="script-item"><h4>Dark Dex V4</h4><p style="font-size: 0.6rem; color: #555;">Explorer / Debugger</p></div>
+                <div class="script-item"><h4>Nameless Admin</h4><p style="font-size: 0.6rem; color: #555;">Powerful CMDs</p></div>
+                <div class="script-item"><h4>Remote Spy</h4><p style="font-size: 0.6rem; color: #555;">Network Sniffer</p></div>
+            </div>
         </div>
     </section>
 
-    <section id="ranks" class="reveal">
-        <div class="card">
-            <h2>Elite Ranks</h2>
-            <p>Absolute Sovereign: ThisNotXsploiting</p>
-            <hr style="border: 0.5px solid var(--border); margin: 20px 0;">
-            <p>Blackbird Council: [CLASSIFIED]</p>
-            <p>Operatives: [ACTIVE]</p>
-        </div>
-    </section>
-
-    <section id="media" class="reveal">
-        <div class="card">
-            <h2>The Archive</h2>
-            <p>View our latest script executions and server purges.</p>
-            <button class="btn" onclick="alert('ACCESS DENIED: LEVEL 5 CLEARANCE REQUIRED')">VIEW CLASSIFIED</button>
+    <section id="executor">
+        <div class="module-card">
+            <h2 style="font-family: 'Syncopate'; font-size: 1rem;">// LUA/LUAU EXECUTOR</h2>
+            <div class="editor-container">
+                <div class="scan"></div>
+                <textarea id="editor" placeholder="-- Paste Sovereign Script Here..."></textarea>
+            </div>
+            <div class="exec-bar">
+                <button class="btn attach" onclick="alert('Attempting to bridge to Roblox Client...')">ATTACH</button>
+                <button class="btn" onclick="executeScript()">EXECUTE</button>
+                <button class="btn" onclick="document.getElementById('editor').value = ''">CLEAR</button>
+            </div>
         </div>
     </section>
 
     <script>
-        // Scroll Reveal Logic
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
+        async function fetchRobloxUser() {
+            const username = document.getElementById('robloxUser').value;
+            const headshotImg = document.getElementById('userHeadshot');
+            const nameDisplay = document.getElementById('displayName');
+            
+            try {
+                // Fetching via a proxy or direct API if allowed by browser
+                // Note: Real Roblox API often requires a proxy for web bypass
+                nameDisplay.innerText = username.toUpperCase();
+                // Simple headshot placeholder logic
+                headshotImg.src = `https://www.roblox.com/headshot-thumbnail/image?width=150&height=150&format=png&username=${username}`;
+                alert("IDENTITY VERIFIED: " + username);
+            } catch (e) {
+                console.log("Error fetching user data.");
             }
         }
-        window.addEventListener("scroll", reveal);
-    </script>
 
+        function executeScript() {
+            const code = document.getElementById('editor').value;
+            if(!code) return alert("Editor empty.");
+            alert("Sovereign Protocol Initiated. Sending payload to Serverside...");
+            console.log("Executing: " + code);
+        }
+    </script>
 </body>
 </html>
