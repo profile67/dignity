@@ -2,76 +2,202 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dignity Sequoia | V26 Elite</title>
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIGNITY | SEQUOIA HUB</title>
     <style>
-        :root { --accent: #007aff; --glass: rgba(255, 255, 255, 0.8); }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'SF Pro Display', sans-serif; }
-        body { height: 100vh; background: url('https://raw.githubusercontent.com/f79/macOS-Wallpapers/master/macOS%20Sequoia/Sequoia%20Light.jpg') center/cover; display: flex; align-items: center; justify-content: center; }
+        :root {
+            --accent: #ff0000;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
 
-        .window { width: 900px; height: 600px; background: var(--glass); backdrop-filter: blur(50px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.4); display: flex; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.2); }
-        .sidebar { width: 220px; background: rgba(0,0,0,0.03); border-right: 1px solid rgba(0,0,0,0.05); padding: 60px 15px; }
-        .nav { padding: 12px; border-radius: 10px; cursor: pointer; color: #555; margin-bottom: 5px; }
-        .nav.active { background: #fff; color: #000; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* No scrolling */
+            background: var(--bg);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: white;
+        }
 
-        .main { flex-grow: 1; padding: 40px; display: none; }
-        .main.active { display: flex; flex-direction: column; }
+        /* FULL BLOWN CRAZY EFFECTS: MOUSE GLOW */
+        #bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--x) var(--y), rgba(255, 0, 0, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-        .editor { flex-grow: 1; background: #1e1e1e; border-radius: 12px; padding: 20px; color: #dcdcaa; font-family: 'JetBrains Mono'; font-size: 14px; outline: none; border: 1px solid #333; }
-        .btn { padding: 12px 25px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; transition: 0.2s; }
-        .primary { background: var(--accent); color: white; margin-top: 15px; }
+        /* NAVIGATION SIDEBAR */
+        #sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+            padding: 40px 20px;
+        }
+
+        #sidebar.open { left: 0; }
+
+        /* TRIGGER ARROW */
+        #trigger {
+            position: fixed;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 101;
+            font-size: 30px;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
+            transition: 0.3s;
+        }
+
+        .tab {
+            padding: 15px;
+            margin: 10px 0;
+            background: var(--glass);
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .tab:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            transform: translateX(10px);
+        }
+
+        /* MAIN CONTENT AREA */
+        #main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 80px;
+            letter-spacing: 15px;
+            margin: 0;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, #fff, #555);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .download-btn {
+            margin-top: 30px;
+            padding: 20px 50px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            font-size: 18px;
+            transition: 0.4s;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .download-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 50px var(--accent);
+            transform: scale(1.1) rotate(-2deg);
+        }
+
+        /* SETUP STEPS BOX */
+        .steps {
+            margin-top: 50px;
+            background: var(--glass);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+        }
+
+        .steps li { text-align: left; margin: 10px 0; color: #ccc; }
     </style>
 </head>
 <body>
 
-    <div class="window">
-        <aside class="sidebar">
-            <div class="nav active" onclick="tab(event, 'exec')">💻 Executor</div>
-            <div class="nav" onclick="tab(event, 'dl')">📥 Download App</div>
-        </aside>
+    <div id="bg-glow"></div>
+    
+    <div id="trigger">➤</div>
 
-        <main id="exec" class="main active">
-            <h2>Luau Terminal</h2>
-            <textarea class="editor" id="scriptBox">print("Dignity V26 Active")</textarea>
-            <div style="display:flex; gap:10px;">
-                <button class="btn primary" style="background:#34c759;" onclick="attach()">Attach</button>
-                <button class="btn primary" onclick="execute()">Execute</button>
-            </div>
-        </main>
+    <div id="sidebar">
+        <h2 style="color: var(--accent)">DIGNITY TABS</h2>
+        <div class="tab">Main Executor</div>
+        <div class="tab">Script Library</div>
+        <div class="tab">Blackbird Clan</div>
+        <div class="tab">Settings</div>
+        <div class="tab" style="margin-top: 50px; color: #ff4444;">Logout</div>
+    </div>
 
-        <main id="dl" class="main">
-            <h2>Desktop Application</h2>
-            <p style="margin: 20px 0; color: #666;">Download the standalone .exe for taskbar support and real Lua injection.</p>
-            
-            <div style="background:white; padding:20px; border-radius:15px; border:1px solid #eee;">
-                <strong>Dignity_Desktop.zip</strong>
-                <p style="font-size: 0.8rem; opacity: 0.6;">Contains: Dignity.exe, Config.json, Bypass.dll</p>
-                <button class="btn primary" style="width:100%;" onclick="downloadZip()">Download Extracted Bundle</button>
-            </div>
-        </main>
+    <div id="main">
+        <h1>DIGNITY</h1>
+        <p style="letter-spacing: 5px; color: var(--accent)">SEQUOIA EDITION | v1.0.0</p>
+
+        <a href="https://xeno.now/5337dcdd-0d34-465e-af00-1814f39e1ac0" class="download-btn" download>DOWNLOAD XENO</a>
+
+        <div class="steps">
+            <h3 style="margin-top: 0">SETUP INSTRUCTIONS</h3>
+            <ol>
+                <li>Click the white button above to download the blob.</li>
+                <li>Disable Real-Time Protection (False Positive prevention).</li>
+                <li>Extract the files to a folder on your Desktop.</li>
+                <li>Run <b>Xeno.exe</b> as Administrator.</li>
+                <li>Join a game and hit Attach.</li>
+            </ol>
+        </div>
     </div>
 
     <script>
-        function tab(e, id) {
-            document.querySelectorAll('.main').forEach(m => m.classList.remove('active'));
-            document.querySelectorAll('.nav').forEach(n => n.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            e.currentTarget.classList.add('active');
-        }
+        // MOUSE GLOW EFFECT
+        const glow = document.getElementById('bg-glow');
+        window.addEventListener('mousemove', (e) => {
+            glow.style.setProperty('--x', e.clientX + 'px');
+            glow.style.setProperty('--y', e.clientY + 'px');
+        });
 
-        function downloadZip() {
-            // This creates a "Real" Zip structure that won't give an error.
-            const zipContent = new Uint8Array([80,75,3,4,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,0,0,0,68,105,103,110,105,116,121,46,101,120,101,80,75,1,2,30,3,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,68,105,103,110,105,116,121,46,101,120,101,80,75,5,6,0,0,0,0,1,0,1,0,57,0,0,0,41,0,0,0,0,0]);
-            const blob = new Blob([zipContent], {type: "application/zip"});
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = "Dignity_Bundle.zip";
-            a.click();
-            alert("Bundle Downloaded. Right-click > Extract All to use.");
-        }
+        // SIDEBAR LOGIC
+        const sidebar = document.getElementById('sidebar');
+        const trigger = document.getElementById('trigger');
+        let isForcedOpen = false;
 
-        function attach() { alert("Searching for Roblox... (Requires C# Wrapper)"); }
-        function execute() { alert("Executing Luau... (Requires C# Wrapper)"); }
+        // Hover functionality
+        trigger.addEventListener('mouseenter', () => { if(!isForcedOpen) sidebar.classList.add('open'); });
+        sidebar.addEventListener('mouseleave', () => { if(!isForcedOpen) sidebar.classList.remove('open'); });
+
+        // Click to stay open functionality
+        trigger.addEventListener('click', () => {
+            isForcedOpen = !isForcedOpen;
+            if(isForcedOpen) {
+                sidebar.classList.add('open');
+                trigger.style.transform = "translateY(-50%) rotate(180deg)";
+            } else {
+                sidebar.classList.remove('open');
+                trigger.style.transform = "translateY(-50%) rotate(0deg)";
+            }
+        });
     </script>
 </body>
 </html>
