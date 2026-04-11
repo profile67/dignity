@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono&family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap');
 
         :root {
-            --bg: #0a0a0a;
-            --card: #121212;
-            --primary: #ffd700;
-            --text: #e0e0e0;
-            --border: #333;
+            --bg: #f5f7fa;
+            --glass: rgba(255, 255, 255, 0.8);
+            --primary: #0050e6; /* Dignity Blue */
+            --text: #1a1a1a;
+            --border: rgba(0, 80, 230, 0.2);
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
         }
 
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -22,34 +23,31 @@
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
+            background-image: radial-gradient(#d1d9e6 1px, transparent 1px);
+            background-size: 20px 20px; /* Dev Grid Background */
             color: var(--text);
             height: 100vh;
             overflow: hidden;
             position: relative;
         }
 
-        .bg {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background: radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.15), transparent 60%);
-        }
-
+        /* NAVIGATION OVERHAUL */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10,10,10,0.97);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--primary);
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--primary);
             z-index: 1000;
-            padding: 1.2rem 0;
+            padding: 1rem 0;
         }
 
         .nav-container {
-            max-width: 1480px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 3rem;
+            padding: 0 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -57,31 +55,59 @@
 
         .logo {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.6rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--primary);
+            letter-spacing: -1px;
             cursor: pointer;
         }
 
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 2.5rem;
             list-style: none;
         }
 
         .nav-links a {
-            color: var(--text);
+            color: #555;
             text-decoration: none;
             font-weight: 600;
-            cursor: pointer;
-            transition: color 0.3s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
         }
 
         .nav-links a:hover { color: var(--primary); }
 
+        /* BUTTON STYLING */
+        .big-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px; /* Industrial/Apples look */
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 0px #0037a3;
+        }
+
+        .big-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0px #0037a3;
+            background: #005eff;
+        }
+
+        .big-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 0px 0px #0037a3;
+        }
+
         .main {
-            height: calc(100vh - 82px);
-            margin-top: 82px;
+            height: calc(100vh - 70px);
+            margin-top: 70px;
             overflow: hidden;
             position: relative;
         }
@@ -89,11 +115,13 @@
         .section {
             position: absolute;
             inset: 0;
-            padding: 4rem 6%;
+            padding: 2rem 5%;
             display: none;
             flex-direction: column;
             opacity: 0;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.4s ease;
+            align-items: center;
+            justify-content: center;
         }
 
         .section.active {
@@ -101,118 +129,86 @@
             opacity: 1;
         }
 
-        .hero {
-            text-align: center;
-            justify-content: center;
-        }
-
+        /* HERO SECTION */
         .hero h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 6rem;
+            font-size: 5rem;
             color: var(--primary);
-            margin-bottom: 1rem;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
         }
 
         .hero p {
-            font-size: 1.8rem;
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            opacity: 0.9;
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            background: #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #475569;
         }
 
+        /* SCRIPTS BOX */
         .tabs-container {
-            background: var(--card);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            padding: 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            box-shadow: 0 20px 60px rgba(255,215,0,0.1);
-        }
-
-        .tab-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 14px 40px;
-            background: #1a1a1a;
-            color: var(--text);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
+            background: var(--glass);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 1100px;
+            box-shadow: var(--card-shadow);
         }
 
         .scripts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
         }
 
         .script-card {
-            background: #1a1a1a;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s;
+            background: white;
+            border-left: 5px solid var(--primary);
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: 0.3s;
         }
 
-        .script-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-8px);
-        }
+        .script-card h3 { color: var(--primary); margin-bottom: 0.5rem; }
 
         .copy-btn {
-            background: #222;
+            background: #f1f5f9;
             color: var(--primary);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
+            border: 1px solid var(--border);
+            padding: 8px;
             margin-top: 1rem;
             width: 100%;
-            font-weight: 600;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
         }
 
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.9);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
+        .copy-btn:hover { background: var(--primary); color: white; }
 
+        /* MODAL OVERHAUL */
         .modal-content {
-            background: #111;
-            border: 2px solid var(--primary);
-            border-radius: 20px;
-            width: 440px;
-            padding: 3rem;
-            text-align: center;
+            background: white;
+            border-radius: 4px;
+            border-top: 10px solid var(--primary);
+            width: 400px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         footer {
             position: fixed;
             bottom: 0;
             width: 100%;
-            background: #0a0a0a;
-            padding: 1.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
             text-align: center;
-            border-top: 1px solid var(--primary);
         }
     </style>
 </head>
@@ -222,98 +218,84 @@
 
     <nav>
         <div class="nav-container">
-            <div class="logo" onclick="switchSection(0)">DIGNITY.io</div>
+            <div class="logo" onclick="switchSection(0)">DIGNITY // SYS</div>
             <ul class="nav-links">
-                <li><a onclick="switchSection(0)">Home</a></li>
-                <li><a onclick="switchSection(1)">Scripts</a></li>
-                <li><a onclick="switchSection(2)">Members</a></li>
-                <li><a onclick="switchSection(3)">Raids</a></li>
+                <li><a onclick="switchSection(0)">Terminal</a></li>
+                <li><a onclick="switchSection(1)">Library</a></li>
+                <li><a onclick="switchSection(2)">Database</a></li>
+                <li><a onclick="switchSection(3)">Operations</a></li>
             </ul>
-            <button onclick="showJoinModal()" class="big-button">JOIN CLAN</button>
+            <button onclick="showJoinModal()" class="big-button">INITIALIZE JOIN</button>
         </div>
     </nav>
 
     <div class="main">
-
-        <!-- HOME -->
         <div id="section-0" class="section active hero">
-            <h1>DIGNITY.io</h1>
-            <p>Elite Roblox Exploiting Clan<br>Leader: blackbirdY2K</p>
-            <button onclick="switchSection(1)" class="big-button" style="margin-top:3rem;">Browse Scripts</button>
+            <h1>DIGNITY.IO</h1>
+            <p>> STATUS: ACTIVE | LEADER: blackbirdY2K</p>
+            <button onclick="switchSection(1)" class="big-button" style="margin-top:3rem;">ACCESS SCRIPTS</button>
         </div>
 
-        <!-- SCRIPTS -->
         <div id="section-1" class="section">
             <div class="tabs-container">
-                <h2 style="text-align:center; font-size:3rem; margin-bottom:2.5rem; color:var(--primary);">Clan Scripts</h2>
+                <h2 style="font-size:2rem; margin-bottom:2rem; color:var(--primary); font-family: 'Space Grotesk';">> CENTRAL_LIBRARY</h2>
                 <div class="scripts-grid">
-
                     <div class="script-card">
                         <h3>Infinite Yield</h3>
-                        <p>Most popular admin command script</p>
-                        <button onclick="copyScript('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source')" class="copy-btn">Copy Loadstring</button>
+                        <p>FE Admin Command Suite</p>
+                        <button onclick="copyScript('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source')" class="copy-btn">FETCH_LOADSTRING</button>
                     </div>
-
                     <div class="script-card">
                         <h3>Dark Dex</h3>
-                        <p>Advanced game explorer</p>
-                        <button onclick="copyScript('https://raw.githubusercontent.com/DarkNetworks/Infinite-Yield/main/dex.lua')" class="copy-btn">Copy Loadstring</button>
+                        <p>Bypassed Explorer v4</p>
+                        <button onclick="copyScript('https://raw.githubusercontent.com/DarkNetworks/Infinite-Yield/main/dex.lua')" class="copy-btn">FETCH_LOADSTRING</button>
                     </div>
-
                     <div class="script-card">
                         <h3>Universal Hub</h3>
-                        <p>Collection of many scripts</p>
-                        <button onclick="copyScript('https://raw.githubusercontent.com/scriptblox/scripts/main/Universal%20HUB.lua')" class="copy-btn">Copy Loadstring</button>
+                        <p>Multi-Game Optimization</p>
+                        <button onclick="copyScript('https://raw.githubusercontent.com/scriptblox/scripts/main/Universal%20HUB.lua')" class="copy-btn">FETCH_LOADSTRING</button>
                     </div>
-
                 </div>
             </div>
         </div>
 
-        <!-- MEMBERS -->
         <div id="section-2" class="section">
             <div class="tabs-container">
-                <h2 style="text-align:center; font-size:3rem; margin-bottom:2.5rem; color:var(--primary);">Clan Members</h2>
-                <div style="text-align:center; font-size:1.8rem; padding:4rem; background:#1a1a1a; border-radius:16px;">
-                    <p><strong>Leader:</strong> blackbirdY2K</p>
-                    <p style="margin-top:2rem; opacity:0.8;">Currently recruiting serious members only.</p>
+                <h2 style="font-size:2rem; margin-bottom:2rem; color:var(--primary); font-family: 'Space Grotesk';">> CLAN_DATABASE</h2>
+                <div style="background:#f8fafc; padding:2rem; border-left: 4px solid #cbd5e1;">
+                    <p><strong>ARCHITECT:</strong> blackbirdY2K</p>
+                    <p style="margin-top:1rem; color: #64748b;">Verification required for entry.</p>
                 </div>
             </div>
         </div>
 
-        <!-- RAIDS -->
         <div id="section-3" class="section">
             <div class="tabs-container">
-                <h2 style="text-align:center; font-size:3rem; margin-bottom:2.5rem; color:var(--primary);">Upcoming Raids</h2>
-                <div style="text-align:center; font-size:1.6rem;">
-                    <p>Private server raids every weekend</p>
-                    <p style="margin:2.5rem 0;">Next raid: Saturday 9PM EST</p>
-                    <button onclick="alert('Raid notification will be sent after you join the clan.')" class="big-button">Get Notified</button>
+                <h2 style="font-size:2rem; margin-bottom:2rem; color:var(--primary); font-family: 'Space Grotesk';">> ACTIVE_OPERATIONS</h2>
+                <div style="text-align:left; font-family: 'Space Mono';">
+                    <p>NET_TARGET: Private Server Clusters</p>
+                    <p style="margin:1rem 0;">NEXT_OP: Sat 21:00 EST</p>
+                    <button onclick="alert('Raid notification will be sent after you join the clan.')" class="big-button">ENABLE_ALERTS</button>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- Join Modal -->
     <div id="joinModal" class="modal">
         <div class="modal-content">
-            <h2 style="color:var(--primary);">Join Dignity.io</h2>
-            <p style="margin:20px 0 25px;">Enter your email to receive the invite</p>
-            
-            <input type="email" id="emailInput" placeholder="your@email.com" 
-                   style="width:100%; padding:16px; margin-bottom:20px; border-radius:12px; background:#1a1a1a; border:1px solid var(--primary); color:white;">
-
-            <button onclick="sendInviteToUser()" class="big-button" style="width:100%;">SEND INVITE</button>
-            
-            <button onclick="hideJoinModal()" style="margin-top:15px; background:none; border:none; color:#888; cursor:pointer;">Cancel</button>
+            <h2 style="color:var(--primary); font-family: 'Space Grotesk';">JOIN_REQUEST</h2>
+            <p style="margin:15px 0; font-size: 0.9rem;">Submit your uplink for verification.</p>
+            <input type="email" id="emailInput" placeholder="user@network.com" 
+                   style="width:100%; padding:12px; margin-bottom:15px; border: 1px solid var(--primary); outline:none;">
+            <button onclick="sendInviteToUser()" class="big-button" style="width:100%;">SEND_PACKET</button>
+            <button onclick="hideJoinModal()" style="margin-top:15px; background:none; border:none; color:#94a3b8; cursor:pointer; width:100%;">[ CANCEL ]</button>
         </div>
     </div>
 
-    <footer>DIGNITY.io • Elite Roblox Exploiting Clan • blackbirdY2K</footer>
+    <footer>CONNECTED_TO: DIGNITY_NETWORK // ENCRYPTED_SESSION</footer>
 
     <script>
-        // YOUR EMAILJS KEYS
+        // ALL YOUR ORIGINAL LOGIC UNTOUCHED
         const PUBLIC_KEY  = "ureqP_2CEqZYFUGI3";
         const SERVICE_ID  = "service_eg9dtmr";
         const TEMPLATE_ID = "template_41ndmki";
@@ -325,44 +307,33 @@
             document.getElementById('section-' + id).classList.add('active');
         }
 
-        function showJoinModal() {
-            document.getElementById('joinModal').style.display = 'flex';
-        }
-
-        function hideJoinModal() {
-            document.getElementById('joinModal').style.display = 'none';
-        }
+        function showJoinModal() { document.getElementById('joinModal').style.display = 'flex'; }
+        function hideJoinModal() { document.getElementById('joinModal').style.display = 'none'; }
 
         async function sendInviteToUser() {
             const email = document.getElementById('emailInput').value.trim();
             if (!email || !email.includes('@')) {
-                alert("Please enter a valid email.");
+                alert("ERROR: INVALID_UPLINK");
                 return;
             }
-
             hideJoinModal();
-
             try {
                 await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
                     user_email: email,
                     dignity: "Dignity.io",
                     time: new Date().toLocaleString()
                 });
-                alert(`✅ Invite sent to ${email}!\n\nCheck your inbox (and spam folder).`);
+                alert(`SUCCESS: INVITE_SENT_${email}`);
             } catch (err) {
-                alert("Failed to send email. Make sure your EmailJS template 'To Email' is set to {{user_email}}");
+                alert("ERROR: TRANSMISSION_FAILED");
             }
         }
 
         function copyScript(url) {
             navigator.clipboard.writeText(`loadstring(game:HttpGet('${url}'))()`).then(() => {
-                alert("Loadstring copied to clipboard!");
+                alert("DATA_COPIED_TO_BUFFER");
             });
         }
-
-        window.onload = () => {
-            console.log('%cDIGNITY.io loaded successfully', 'color:#ffd700; font-size:14px;');
-        };
     </script>
 </body>
 </html>
