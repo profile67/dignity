@@ -2,261 +2,251 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TestNav | Pearson | Blackbird Edition</title>
+    <title>Sitetest2 | Blackbird Internal</title>
     <style>
+        /* --- CORE CLASSIC THEME --- */
         :root {
-            --nav-blue: #004a99;
-            --bg-gray: #f4f4f4;
-            --border-gray: #cccccc;
+            --test-blue: #004a99;
+            --test-gray: #e1e1e1;
+            --test-border: #bcbcbc;
             --orange-alert: #ff8c00;
+            --terminal-text: #333333;
         }
 
-        body {
-            background-color: var(--bg-gray);
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        /* --- LOGIN SCREEN (OVERLAY) --- */
-        #login-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 1000;
-            display: flex;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: #f0f0f0; 
+            font-family: "Segoe UI", Arial, sans-serif; 
+            height: 100vh; 
+            display: flex; 
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
         }
 
-        .login-box {
-            width: 350px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .login-box h1 {
-            color: var(--nav-blue);
-            font-size: 24px;
-            margin-bottom: 30px;
-        }
-
-        .login-box input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid var(--border-gray);
-            border-radius: 4px;
-        }
-
-        .sign-in-btn {
-            background-color: var(--nav-blue);
-            color: white;
-            border: none;
-            padding: 10px 30px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        /* --- TESTNAV MAIN UI --- */
-        #test-interface {
-            display: none;
-            flex-direction: column;
-            height: 100vh;
-        }
-
+        /* --- TESTNAV CLINICAL HEADER --- */
         header {
-            background-color: var(--nav-blue);
+            background-color: var(--test-blue);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .student-info { font-size: 14px; }
+        .header-left { display: flex; align-items: center; gap: 15px; }
+        .logo-text { font-weight: bold; font-size: 20px; letter-spacing: -1px; }
+        .session-info { font-size: 13px; opacity: 0.9; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 15px; }
 
+        /* --- MAIN TACTICAL LAYOUT --- */
         main {
-            flex: 1;
             display: flex;
+            flex: 1;
+            padding: 15px;
+            gap: 15px;
+            overflow: hidden;
+        }
+
+        .workspace-panel {
+            background: white;
+            border: 1px solid var(--test-border);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* EDITOR SIDE */
+        .editor-container { flex: 2; position: relative; }
+        .panel-label {
+            background: #f9f9f9;
+            padding: 8px 15px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            border-bottom: 1px solid var(--test-border);
+            text-transform: uppercase;
+        }
+
+        #code-area {
+            width: 100%;
+            height: 100%;
+            border: none;
             padding: 20px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 14px;
+            color: #000;
+            resize: none;
+            outline: none;
+            line-height: 1.5;
+        }
+
+        /* SIDEBAR: SCRIPTS & OUTPUT */
+        .sidebar { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        
+        .script-vault { flex: 2; overflow-y: auto; }
+        .console-output { flex: 1; background: #222 !important; color: #0f0; }
+        .console-output #log { padding: 10px; font-family: monospace; font-size: 11px; line-height: 1.4; }
+
+        /* SCRIPT ITEMS */
+        .script-card {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .script-card:hover { background: #fcfcfc; }
+        .script-card span { font-size: 13px; color: #444; font-weight: 500; }
+        
+        .copy-btn {
+            background: white;
+            border: 1px solid var(--test-blue);
+            color: var(--test-blue);
+            padding: 5px 12px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+        .copy-btn:hover { background: var(--test-blue); color: white; }
+
+        /* FOOTER CONTROLS */
+        footer {
+            background: white;
+            height: 60px;
+            border-top: 1px solid var(--test-border);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 30px;
             gap: 20px;
         }
 
-        .section-box {
-            background: white;
-            border: 1px solid var(--border-gray);
-            border-radius: 4px;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        .editor-side { flex: 2; }
-        .output-side { flex: 1; background-color: #f9f9f9; }
-
-        h2 { font-size: 16px; color: #333; margin-top: 0; }
-
-        textarea {
-            width: 100%;
-            flex: 1;
-            border: 1px solid var(--border-gray);
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            padding: 10px;
-            resize: none;
-            outline-color: var(--nav-blue);
-        }
-
-        .footer-nav {
-            background: white;
-            border-top: 1px solid var(--border-gray);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .next-btn {
-            background-color: #007bc3;
-            color: white;
-            border: none;
-            padding: 10px 40px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        /* --- ORANGE FADING UI --- */
-        #toast-notification {
-            position: fixed;
-            top: 20px;
-            right: -250px;
-            background-color: var(--orange-alert);
-            color: white;
-            padding: 12px 25px;
+        .action-btn {
+            padding: 10px 25px;
             border-radius: 4px;
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: right 0.5s ease, opacity 0.5s ease;
-            z-index: 2000;
-            opacity: 0;
-        }
-
-        /* --- VAULT SECTION --- */
-        .vault-item {
-            border-bottom: 1px solid #eee;
-            padding: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .vault-item span { font-size: 14px; color: #555; }
-
-        .copy-link {
-            color: var(--nav-blue);
-            text-decoration: none;
-            font-size: 12px;
             cursor: pointer;
+            font-size: 14px;
+            border: 1px solid var(--test-border);
+        }
+        .primary { background: var(--test-blue); color: white; border: none; }
+        .primary:hover { background: #003a7a; }
+
+        /* --- ORANGE NOTIFICATION --- */
+        #toast {
+            position: fixed;
+            top: 65px;
+            right: -300px;
+            background: var(--orange-alert);
+            color: white;
+            padding: 12px 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 9999;
+            border-radius: 2px;
         }
 
-        .download-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--nav-blue);
-            font-size: 13px;
-        }
+        /* UTILITY */
+        .roblox-link { color: var(--test-blue); font-size: 12px; text-decoration: none; margin-top: auto; padding: 15px; font-weight: bold; }
+        .roblox-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-<div id="toast-notification">Copied to clipboard</div>
+<div id="toast">DATA COPIED TO CLOUD</div>
 
-<div id="login-screen">
-    <div class="login-box">
-        <h1>TestNav</h1>
-        <p style="color: #666; margin-bottom: 20px;">Sign in to your assessment</p>
-        <input type="text" placeholder="Username" id="user">
-        <input type="password" placeholder="Password" id="pass">
-        <button class="sign-in-btn" onclick="login()">Sign In</button>
+<header>
+    <div class="header-left">
+        <div class="logo-text">TestNav</div>
+        <div class="session-info">Sitetest2 Internal Environment | Architect | ID: 10583358597</div>
     </div>
-</div>
+    <div style="font-size: 12px;">v4.0.12_STABLE</div>
+</header>
 
-<div id="test-interface">
-    <header>
-        <span>Blackbird Luau Proficiency Test</span>
-        <div class="student-info">Architect | Student ID: 10583358597</div>
-    </header>
+<main>
+    <div class="workspace-panel editor-container">
+        <div class="panel-label">THIS IS TO TEST UR CODING.</div>
+        <textarea id="code-area" spellcheck="false" placeholder="-- [SYSTEM]: Waiting for Luau source..."></textarea>
+        <a href="https://www.roblox.com/download" target="_blank" class="roblox-link">Download Latest Client (v2.618)</a>
+    </div>
 
-    <main>
-        <div class="section-box editor-side">
-            <h2>THIS IS TO TEST UR CODING.</h2>
-            <textarea id="luau-code" placeholder="Write your test script here..."></textarea>
-            <a href="https://www.roblox.com/download" target="_blank" class="download-link">Get most recent Roblox client</a>
+    <div class="sidebar">
+        <div class="workspace-panel script-vault">
+            <div class="panel-label">Script Repository</div>
+            <div id="vault-content">
+                </div>
         </div>
 
-        <div class="section-box output-side">
-            <h2>Evaluation Output</h2>
-            <div id="console" style="font-size: 12px; color: #666; font-family: monospace;">
-                Ready for evaluation...
-            </div>
-            <div style="margin-top: 30px;">
-                <h2>Script Reference Library</h2>
-                <div class="vault-item">
-                    <span>Infinite Yield</span>
-                    <span class="copy-link" onclick="copyTo('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\'))()')">Copy Code</span>
-                </div>
-                <div class="vault-item">
-                    <span>Dark Dex</span>
-                    <span class="copy-link" onclick="copyTo('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/DarkDexV3.lua\'))()')">Copy Code</span>
-                </div>
+        <div class="workspace-panel console-output">
+            <div class="panel-label" style="background:#333; color:#fff; border:none;">Diagnostic Output</div>
+            <div id="log">
+                [05:00:01] KERNEL LOADED...<br>
+                [05:00:02] BYPASSING SITE_RESTRICTIONS...<br>
+                [05:00:02] READY.
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
-    <footer class="footer-nav">
-        <button class="next-btn" style="background:#eee; color:#333; border: 1px solid #ccc;">Previous</button>
-        <button class="next-btn" onclick="evaluateCode()">Execute & Next</button>
-    </footer>
-</div>
+<footer>
+    <button class="action-btn" onclick="document.getElementById('code-area').value = ''">Reset Block</button>
+    <button class="action-btn primary" onclick="simulateExec()">Execute Test</button>
+</footer>
 
 <script>
-    function login() {
-        document.getElementById('login-screen').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('test-interface').style.display = 'flex';
-        }, 500);
-    }
+    const scripts = [
+        { name: "Infinite Yield", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()" },
+        { name: "Dark Dex V3", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/DarkDexV3.lua'))()" },
+        { name: "SimpleSpy", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua'))()" },
+        { name: "RemoteSpy", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/ex-spectre/rscripts/main/rspy.lua'))()" },
+        { name: "Hydroxide", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Upbolt/Hydroxide/revision/init.lua'))()" },
+        { name: "Vynixius Hub", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/Vynixius/Vynixius/main/Loader.lua'))()" },
+        { name: "Orca", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/pika/orca/main/source.lua'))()" },
+        { name: "Domain Hub", code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/DomainHub/main/source'))()" }
+    ];
 
-    function showToast() {
-        const toast = document.getElementById('toast-notification');
+    const vault = document.getElementById('vault-content');
+    scripts.forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'script-card';
+        div.innerHTML = `<span>${s.name}</span><button class="copy-btn" onclick="copyCode('${s.code}')">COPY</button>`;
+        vault.appendChild(div);
+    });
+
+    function copyCode(txt) {
+        navigator.clipboard.writeText(txt);
+        const toast = document.getElementById('toast');
         toast.style.right = '20px';
-        toast.style.opacity = '1';
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.right = '-250px';
-        }, 2000);
+        setTimeout(() => { toast.style.right = '-300px'; }, 2000);
     }
 
-    function copyTo(text) {
-        navigator.clipboard.writeText(text);
-        showToast();
-    }
-
-    function evaluateCode() {
-        const out = document.getElementById('console');
-        out.innerHTML += "<br>> Scanning for errors...";
+    function simulateExec() {
+        const log = document.getElementById('log');
+        const code = document.getElementById('code-area').value;
+        if(!code) return;
+        
+        const line = document.createElement('div');
+        line.innerHTML = `[${new Date().toLocaleTimeString()}] ANALYZING SOURCE...`;
+        log.appendChild(line);
+        
         setTimeout(() => {
-            out.innerHTML += "<br>> Code block validated.";
+            const success = document.createElement('div');
+            success.style.color = "#fff";
+            success.innerHTML = `[${new Date().toLocaleTimeString()}] TEST COMPLETED: NO SYNTAX ERRORS.`;
+            log.appendChild(success);
         }, 1000);
     }
-</script>
 
+    // EXTRA BUFFER FOR CLASSIC FEEL
+    for(let i=0; i<100; i++) {
+        // Internal data management...
+        // Maintaining Sitetest2 structure...
+        // Validating Architect credentials...
+    }
+</script>
 </body>
 </html>
