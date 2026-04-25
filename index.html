@@ -2,139 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Google</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dignity | System Override</title>
     <style>
-        body { margin: 0; padding: 0; font-family: arial, sans-serif; height: 100vh; overflow: hidden; background: #fff; }
-        
-        /* LINEWIZE ADMIN BAR */
-        #admin-header {
-            background: #1a73e8;
-            color: white;
-            font-size: 13px;
-            padding: 8px 20px;
+        body {
+            background-color: #050505;
+            color: #1e90ff; /* Sakura Blue */
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .terminal {
+            border: 1px solid #1e90ff;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 0 20px rgba(30, 144, 255, 0.2);
+            width: 400px;
+        }
+
+        .header {
+            color: #ff4d4d; /* Annoyed Red */
             font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ff4d4d;
+            padding-bottom: 5px;
         }
 
-        /* GOOGLE UI REPLICATION */
-        .container { display: flex; flex-direction: column; align-items: center; margin-top: 15vh; }
-        .logo { width: 272px; margin-bottom: 30px; position: relative; }
-        .search-box {
-            width: 584px; height: 44px; border: 1px solid #dfe1e5;
-            border-radius: 24px; display: flex; align-items: center;
-            padding: 0 14px; transition: box-shadow 0.2s;
-        }
-        .search-box:hover { box-shadow: 0 1px 6px rgba(32,33,36,0.28); border-color: rgba(223,225,225,0); }
-        .search-input {
-            flex: 1; border: none; outline: none; font-size: 16px;
-            margin-left: 10px; height: 34px;
-        }
-        .buttons { margin-top: 30px; }
-        .btn {
-            background: #f8f9fa; border: 1px solid #f8f9fa; border-radius: 4px;
-            color: #3c4043; font-size: 14px; margin: 11px 4px; padding: 0 16px;
-            line-height: 36px; min-width: 54px; cursor: pointer;
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
-        /* THE ACTUAL LINEWIZE "CRANKED" OVERLAY */
-        #linewize-terminal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #ffffff; z-index: 99999;
-            flex-direction: column; align-items: center; justify-content: center;
+        button {
+            background: transparent;
+            border: 1px solid #1e90ff;
+            color: #1e90ff;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 10px;
         }
-        .block-wrapper {
-            max-width: 600px; text-align: left; border: 1px solid #eaeaea;
-            padding: 50px; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+
+        button:hover {
+            background: #1e90ff;
+            color: #000;
+            box-shadow: 0 0 10px #1e90ff;
         }
-        .linewize-head { color: #00b5ff; font-size: 40px; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
-        .denied { color: #d93025; font-size: 28px; font-weight: 400; margin-bottom: 20px; }
-        .reason-box { border-left: 4px solid #d93025; background: #fce8e6; padding: 15px; margin: 20px 0; }
-        .user-tag { font-family: 'Courier New', monospace; font-size: 12px; color: #70757a; margin-top: 30px; }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 8px;
+            color: #555;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
 
-<div id="admin-header">
-    <div>🛡️ Managed Environment: besd33.org</div>
-    <div>ACTIVE FILTER: LINEWIZE_ULTRA_V4 | USER: 326306</div>
-</div>
-
-<div class="container">
-    <div class="logo">
-        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" alt="Google" width="272">
-    </div>
-    
-    <div class="search-box">
-        <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="#9aa0a6"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
-        <input type="text" class="search-input" id="main-search" autofocus>
-    </div>
-
-    <div class="buttons">
-        <button class="btn">Google Search</button>
-        <button class="btn">I'm Feeling Lucky</button>
-    </div>
-</div>
-
-<div id="linewize-terminal">
-    <div class="block-wrapper">
-        <div class="linewize-head">linewize</div>
-        <div class="denied">Locked by Administrator</div>
-        <p>Access to this resource has been restricted by your school district's security policy.</p>
-        
-        <div class="reason-box">
-            <strong>Category:</strong> Exploits, Hacking, and Unauthorized Bypasses<br>
-            <strong>Trigger:</strong> High-Level Pattern Recognition (DPI)
+    <div class="terminal">
+        <div class="header">STATUS: ANNOYED // ROLE: SAKURA</div>
+        <div class="btn-grid">
+            <button onclick="playAudio('13269140651')">Execute: FN_DEATH</button>
+            <button onclick="playAudio('140481768844835')">Execute: SCP_096</button>
+            <button onclick="playAudio('139668725303708')">Execute: METAL_PIPE</button>
+            <button onclick="playAudio('80776947525537')">Execute: I_M_MEEN</button>
         </div>
-
-        <p style="color:#5f6368; font-size: 14px;">Your browsing session is being recorded for review by <strong>BESD33 IT Compliance.</strong></p>
-        
-        <div class="user-tag">
-            LOG_ID: BLKBIRD-809K-SOVEREIGN<br>
-            USER_ID: 326306@besd33.org<br>
-            TIMESTAMP: <span id="time-stamp"></span>
-        </div>
-        <button onclick="location.reload()" style="margin-top:20px; padding: 10px 20px; background:#1a73e8; color:white; border:none; border-radius:4px; cursor:pointer;">Return to Dashboard</button>
+        <div class="footer">LOG_ID: BLKBIRD-SOVEREIGN-BYPASS</div>
     </div>
-</div>
 
-<script>
-    const searchInput = document.getElementById('main-search');
-    const blockPage = document.getElementById('linewize-terminal');
-    const timeSpan = document.getElementById('time-stamp');
-
-    // "ACTUAL" CRANKED LIST - Anything even slightly suspicious triggers it
-    const crankedFilter = [
-        "xeno", "executor", "roblox", "script", "lua", "bypass", "unblock", 
-        "proxy", "vpn", "discord", "tiktok", "instants", "soundboard", 
-        "github", "replit", "now.gg", "math games", "vulture", "coconut"
-    ];
-
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const query = searchInput.value.toLowerCase();
-            let flagged = false;
-
-            // Deep Scan logic
-            crankedFilter.forEach(word => {
-                if (query.includes(word)) flagged = true;
-            });
-
-            if (flagged) {
-                // Trigger the Lockdown
-                timeSpan.innerText = new Date().toLocaleString();
-                blockPage.style.display = 'flex';
-            } else {
-                // Simulate a real search redirect
-                window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(query);
-            }
+    <script>
+        function playAudio(assetId) {
+            // Roblox Asset Delivery API Link
+            const url = `https://www.roblox.com/asset-thumbnail/image?assetId=${assetId}&width=0&height=0&format=mp3`;
+            
+            // Note: Modern browsers often block direct Roblox audio links due to CORS.
+            // If it doesn't play, you'll need to host the .mp3 files directly in your GitHub repo.
+            const audio = new Audio(`https://assetdelivery.roblox.com/v1/asset/?id=${assetId}`);
+            audio.play().catch(e => console.log("System block: Audio requires manual trigger or local hosting."));
         }
-    });
-</script>
+    </script>
 
 </body>
 </html>
