@@ -2,37 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dignity | System Override</title>
+    <title>Dignity | Xeno Override</title>
     <style>
         body { background: #050505; color: #1e90ff; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .terminal { border: 1px solid #1e90ff; padding: 30px; background: #000; box-shadow: 0 0 20px #1e90ff33; width: 350px; text-align: center; }
-        .header { color: #ff4d4d; border-bottom: 1px solid #ff4d4d; margin-bottom: 20px; padding-bottom: 10px; font-weight: bold; }
-        .grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-        button { background: transparent; border: 1px solid #1e90ff; color: #1e90ff; padding: 15px; cursor: pointer; text-transform: uppercase; font-size: 11px; }
-        button:hover { background: #1e90ff; color: #000; }
+        .terminal { border: 1px solid #1e90ff; padding: 25px; background: #000; box-shadow: 0 0 30px #1e90ff22; width: 450px; text-align: center; }
+        .header { color: #ff4d4d; border-bottom: 1px solid #ff4d4d; margin-bottom: 20px; padding-bottom: 10px; font-weight: bold; letter-spacing: 2px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        button { background: transparent; border: 1px solid #1e90ff; color: #1e90ff; padding: 15px; cursor: pointer; text-transform: uppercase; font-size: 10px; transition: 0.2s; }
+        button:hover { background: #1e90ff; color: #000; box-shadow: 0 0 10px #1e90ff; }
+        .special { border: 1px solid #ff4d4d; color: #ff4d4d; grid-column: span 2; }
+        .special:hover { background: #ff4d4d; color: #000; box-shadow: 0 0 10px #ff4d4d; }
     </style>
 </head>
-<body onclick="document.getElementById('msg').innerText='SYSTEM ARMED'">
+<body onclick="document.getElementById('msg').innerText='XENO PROTOCOL ACTIVE'">
 
     <div class="terminal">
-        <div class="header">FORCE_SAKURA // BYPASS_V5</div>
+        <div class="header">FORCE_SAKURA // XENO_EDITION</div>
         <div class="grid">
             <button onclick="play('https://www.myinstants.com/media/sounds/fortnite-death-sound-effect-bit-depth-24-bit.mp3')">FN_DEATH</button>
             <button onclick="play('https://www.myinstants.com/media/sounds/scp-096-scream.mp3')">SCP_096</button>
             <button onclick="play('https://www.myinstants.com/media/sounds/metal-pipe-clang.mp3')">METAL_PIPE</button>
             <button onclick="play('https://www.myinstants.com/media/sounds/im-meen-book.mp3')">I_M_MEEN</button>
+            
+            <button class="special" onclick="playRandom()">EXECUTE: RANDOM_XENO_SFX</button>
         </div>
-        <div id="msg" style="margin-top:15px; font-size:9px; color:#444;">CLICK BACKGROUND TO ARM</div>
+        <div id="msg" style="margin-top:15px; font-size:9px; color:#444;">CLICK BACKGROUND TO INITIALIZE</div>
     </div>
 
     <script>
+        // List of sound URLs that are usually part of executor UIs or unblocked CDNs
+        const xenoSounds = [
+            'https://www.myinstants.com/media/sounds/discord-notification.mp3',
+            'https://www.myinstants.com/media/sounds/windows-xp-error.mp3',
+            'https://www.myinstants.com/media/sounds/error_CD77S63.mp3',
+            'https://www.myinstants.com/media/sounds/mouse-click-sound.mp3'
+        ];
+
         function play(url) {
-            const audio = new Audio(url);
-            audio.play().catch(e => {
-                console.log("Filter block detected. Trying alternative route...");
-                // If MyInstants is blocked, we can't do much without hosting our own.
-                alert("SYSTEM ERROR: Audio host blocked. Click background first or try at home.");
-            });
+            new Audio(url).play().catch(e => console.log("Blocked"));
+        }
+
+        function playRandom() {
+            const randomSound = xenoSounds[Math.floor(Math.random() * xenoSounds.length)];
+            play(randomSound);
         }
     </script>
 </body>
