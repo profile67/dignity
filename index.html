@@ -2,112 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dignity | System Override</title>
     <style>
-        body {
-            background-color: #050505;
-            color: #1e90ff;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            cursor: crosshair;
-        }
-
-        .terminal {
-            border: 1px dashed #1e90ff;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.95);
-            box-shadow: 0 0 25px rgba(30, 144, 255, 0.1);
-            width: 380px;
-            text-align: center;
-        }
-
-        .header {
-            color: #ff4d4d;
-            font-weight: bold;
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-            border-bottom: 1px solid #ff4d4d;
-            padding-bottom: 10px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        button {
-            background: #000;
-            border: 1px solid #1e90ff;
-            color: #1e90ff;
-            padding: 15px 5px;
-            cursor: pointer;
-            font-size: 10px;
-            transition: 0.2s;
-            text-transform: uppercase;
-        }
-
-        button:hover {
-            background: #1e90ff;
-            color: #000;
-            box-shadow: 0 0 15px #1e90ff;
-        }
-
-        .status {
-            margin-top: 20px;
-            font-size: 9px;
-            color: #444;
-            text-transform: uppercase;
-        }
+        body { background: #050505; color: #1e90ff; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .terminal { border: 1px solid #1e90ff; padding: 30px; background: #000; box-shadow: 0 0 20px #1e90ff33; width: 350px; text-align: center; }
+        .header { color: #ff4d4d; border-bottom: 1px solid #ff4d4d; margin-bottom: 20px; padding-bottom: 10px; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        button { background: transparent; border: 1px solid #1e90ff; color: #1e90ff; padding: 15px; cursor: pointer; text-transform: uppercase; font-size: 11px; }
+        button:hover { background: #1e90ff; color: #000; }
     </style>
 </head>
-<body onclick="activate()">
+<body onclick="document.getElementById('msg').innerText='SYSTEM ARMED'">
 
     <div class="terminal">
-        <div class="header">FORCE SAKURA // OVERRIDE</div>
+        <div class="header">FORCE_SAKURA // BYPASS_V5</div>
         <div class="grid">
-            <button onclick="play('13269140651')">FN_DEATH</button>
-            <button onclick="play('140481768844835')">SCP_096</button>
-            <button onclick="play('139668725303708')">METAL_PIPE</button>
-            <button onclick="play('80776947525537')">I_M_MEEN</button>
+            <button onclick="play('https://www.myinstants.com/media/sounds/fortnite-death-sound-effect-bit-depth-24-bit.mp3')">FN_DEATH</button>
+            <button onclick="play('https://www.myinstants.com/media/sounds/scp-096-scream.mp3')">SCP_096</button>
+            <button onclick="play('https://www.myinstants.com/media/sounds/metal-pipe-clang.mp3')">METAL_PIPE</button>
+            <button onclick="play('https://www.myinstants.com/media/sounds/im-meen-book.mp3')">I_M_MEEN</button>
         </div>
-        <div id="msg" class="status">Click anywhere to initialize system...</div>
+        <div id="msg" style="margin-top:15px; font-size:9px; color:#444;">CLICK BACKGROUND TO ARM</div>
     </div>
 
     <script>
-        let ready = false;
-
-        function activate() {
-            ready = true;
-            document.getElementById('msg').innerText = "System Ready. Execute commands.";
-            document.getElementById('msg').style.color = "#1e90ff";
-        }
-
-        function play(id) {
-            if (!ready) {
-                alert("Click the background first to bypass browser lock.");
-                return;
-            }
-
-            // Using a different delivery endpoint that sometimes sneaks past filters
-            const url = `https://assetdelivery.roblox.com/v1/asset/?id=${id}`;
-            
+        function play(url) {
             const audio = new Audio(url);
-            audio.type = 'audio/mpeg';
-            
-            audio.play().catch(err => {
-                console.error("Blocked by filter or CORS. Try a proxy.");
-                // If it fails, we try the proxy method automatically
-                const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(url);
-                new Audio(proxyUrl).play().catch(e => {
-                    alert("Linewize is blocking the audio source. You may have to host files on GitHub.");
-                });
+            audio.play().catch(e => {
+                console.log("Filter block detected. Trying alternative route...");
+                // If MyInstants is blocked, we can't do much without hosting our own.
+                alert("SYSTEM ERROR: Audio host blocked. Click background first or try at home.");
             });
         }
     </script>
