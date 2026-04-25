@@ -8,8 +8,8 @@
 ## 📂 CLAN DIRECTORY
 > "Thriving off the logic, dominating through the void."
 
-* **Primary Hub:** [dignity/official-site](https://profile67.github.io/dignity/)
-* **Legacy Archive:** [dignity/old-netizen](https://heromolina4-netizen.github.io/dignity/)
+* **Primary Hub:** [dignity/official-site](https://sakurraaaaaa.github.io/dignity/)
+* **Legacy Archive:** [dignity/old-netizen DOESNT WORK. 404](https://heromolina4-netizen.github.io/dignity/)
 * **Lead Architect:** `ThisNotXsploiting` (ID: 10583358597)
 
 ---
